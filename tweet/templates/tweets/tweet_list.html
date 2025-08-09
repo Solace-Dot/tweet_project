@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Tweets</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container mt-5">
+    <h2 class="mb-4">All Tweets</h2>
+    <a href="{% url 'create_tweet' %}" class="btn btn-primary mb-3">Create New Tweet</a>
+
+    {% if tweets %}
+        <div class="row">
+            {% for tweet in tweets %}
+                <div class="col-md-6 mb-4">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <p class="card-text">{{ tweet.content }}</p>
+                            {% if tweet.image %}
+                                <img src="{{ tweet.image.url }}" alt="Tweet Image" class="img-fluid rounded mt-2">
+                            {% endif %}
+                        </div>
+                        <div class="card-footer text-muted small">
+                            Posted on {{ tweet.created_at|date:"M d, Y H:i" }}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-info">No tweets yet. Be the first to post!</div>
+    {% endif %}
+</div>
+
+</body>
+</html>
